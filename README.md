@@ -1,2 +1,3 @@
 # gitShare
  training project
+06a1ca3e0291c2ef59f8569df4e5cb452e7bb8db
