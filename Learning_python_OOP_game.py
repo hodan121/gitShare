@@ -1,4 +1,4 @@
-import random
+from random import random, randint
 
 
 class Person:
@@ -10,7 +10,7 @@ class Person:
 
     def get_atr(self):
         print(
-            f'У нас тут {self.race}, {self._health} ХП, тычка на {self._damage} с руки, армор поглощает {self._armor * 100}% урона')
+            f'У нас тут {self.race}, {self._health} ХП, тычка на {self._damage} с руки, армор поглощает {round(0.1 * self._armor * 100)}% урона')
     
     def get_health(self):
         return self._health
@@ -19,31 +19,31 @@ class Person:
         return self._damage
 
     def _i_get_damage(self, enemy):
-        self._health -= enemy._i_deal_damage() * (1 - self._armor)
+        self._health -= enemy._i_deal_damage() * (1 - 0.1 * self._armor)
 
     def i_attack(self, enemy):
         self._i_deal_damage()
         enemy._i_get_damage(self)
 
-    def initiative(self):
-        return random.random()
+    def _initiative(self):
+        return random()
 
 
 class Player(Person):
-    def __init__(self, _damage=100, _health=300, _armor=0.4):
+    def __init__(self, _damage=randint(110, 120), _health=randint(300, 330), _armor=randint(1, 3)):
         self.race = 'Человек'
         super().__init__(self.race, _damage, _health, _armor)
 
 
 class Enemy(Person):
-    def __init__(self, _damage=70, _health=400, _armor=0.2):
+    def __init__(self, _damage=randint(120, 130), _health=randint(280, 310), _armor=randint(1, 3)):
         self.race = 'Андед'
         super().__init__(self.race, _damage, _health, _armor)
 
 
 class Game:
     def __init__(self, player, enemy):
-        if enemy.initiative() > player.initiative():
+        if enemy._initiative() > player._initiative():
             self.attacker = enemy
             self.defer = player
         else:
@@ -54,14 +54,13 @@ class Game:
         while True:
             self.attacker.i_attack(self.defer)
             if self.defer.get_health() <=0:
-                print(f'{self.attacker.race} выжил! У него осталось {self.attacker.get_health()} ХП')
+                print(f'{self.attacker.race} выжил! У него осталось {round(self.attacker.get_health())} ХП')
                 break
             else:
-                self.defer, self.attacker = self.attacker, self.defer
+                self.attacker, self.defer = self.defer, self.attacker
 
 human = Player()
 undead = Enemy()
-human.
 
 human.get_atr()
 undead.get_atr()
