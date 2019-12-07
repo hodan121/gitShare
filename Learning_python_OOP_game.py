@@ -10,7 +10,7 @@ class Person:
 
     def get_atr(self):
         print(
-            f'У нас тут {self.race}, {self._health} ХП, тычка на {self._damage} с руки, армор поглощает {round(0.1 * self._armor * 100)}% урона')
+            f'У нас тут {self.race}, {self.get_health()} ХП, тычка на {self._damage} с руки, армор поглощает {round(0.1 * self._armor * 100)}% урона')
     
     def get_health(self):
         return self._health
